@@ -6,11 +6,14 @@ public interface IKullaniciService
 {
     Task<bool> KullaniciOlustur(KullaniciOlusturRequestDTO kullaniciOlusturRequest);
     
-    Task<KullaniciResponseDTO> KullaniciGetirIdyeGore(int KullaniciId);
+    Task<KullaniciResponseDTO> KullaniciGetirIdyeGore(int kullaniciId);
     
-    Task<List<KullaniciResponseDTO>> KullacilariListele();
+    Task<List<KullaniciResponseDTO>> KullanicilariListele();
     
     Task<bool> KullaniciSil(int kullaniciId);
+
+    Task<bool> KullaniciyiPasifeAl(int kullaniciId);
+    Task<bool> KullaniciyiAktifEt(int kullaniciId);
     
     Task<bool> KullaniciGuncelle(KullaniciGuncelleRequestDTO kullaniciGuncelleRequest);
     

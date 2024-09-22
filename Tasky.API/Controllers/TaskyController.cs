@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Tasky.Application.Abstraction;
 using Tasky.Application.DTOs;
-using Tasky.Entities.Models;
 
 namespace Tasky.API.Controllers;
 
@@ -16,11 +15,39 @@ public class TaskyController : ControllerBase
         _kullaniciService = kullaniciService;
     }
     
-    [HttpPost(Name = "KullaniciEkle")]
+    [HttpPost("KullaniciEkle")]
     public async Task<IActionResult> KullaniciEkle(KullaniciOlusturRequestDTO request)
     {
         var result =  await _kullaniciService.KullaniciOlustur(request);
-        
         return Ok(result);
     }
+
+    [HttpGet("KullaniciGetirIdyeGore")]
+    public async Task<IActionResult> KullaniciGetirIdyeGore(int kullaniciId)
+    {
+        var result = await _kullaniciService.KullaniciGetirIdyeGore(kullaniciId);
+        return Ok(result);
+    }
+
+    [HttpDelete("KullaniciSil")]
+    public async Task<IActionResult> KullaniciSil(int kullaniciId)
+    {
+        var result = await _kullaniciService.KullaniciSil(kullaniciId);
+        return Ok(result);
+    }
+
+    [HttpPatch("KullaniciyiPasifeAl")]
+    public async Task<IActionResult> KullaniciyiPasifeAl(int kullaniciId)
+    {
+        var result = await _kullaniciService.KullaniciyiPasifeAl(kullaniciId);
+        return Ok(result);
+    }
+    
+    [HttpPatch("KullaniciyiAktifEt")]
+    public async Task<IActionResult> KullaniciyiAktifEt(int kullaniciId)
+    {
+        var result = await _kullaniciService.KullaniciyiAktifEt(kullaniciId);
+        return Ok(result);
+    }
+    
 }

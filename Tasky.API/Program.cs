@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TaskDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("TaskyDB")));
 
 builder.Services.AddScoped<IKullaniciService, KullaniciService>();
+// builder.Services.AddScoped<IKonuService, KonuService>();
 
 //best practice değil!!
 
