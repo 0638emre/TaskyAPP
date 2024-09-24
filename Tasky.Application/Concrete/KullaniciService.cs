@@ -11,7 +11,7 @@ public class KullaniciService : IKullaniciService
     private readonly TaskDBContext _dbContext;
 
     //dependency injecktion DI
-    public KullaniciService(TaskDBContext dbContext)
+    public KullaniciService(TaskDBContext dbContext) //CONSTRUCTOR
     {
         _dbContext = dbContext;
     }

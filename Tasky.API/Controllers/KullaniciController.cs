@@ -6,11 +6,11 @@ namespace Tasky.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TaskyController : ControllerBase
+public class KullaniciController : ControllerBase
 {
     private readonly IKullaniciService _kullaniciService;
 
-    public TaskyController(IKullaniciService kullaniciService)
+    public KullaniciController(IKullaniciService kullaniciService)
     {
         _kullaniciService = kullaniciService;
     }
