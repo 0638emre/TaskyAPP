@@ -78,9 +78,28 @@ public class KullaniciService : IKullaniciService
         return kullaniciResponseDTO;
     }
 
-    public Task<List<KullaniciResponseDTO>> KullanicilariListele()
+    public async Task<List<KullaniciResponseDTO>> KullanicilariListele()
     {
-        throw new NotImplementedException();
+        //automapper
+        List<KullaniciResponseDTO> kullaniciListesi = new List<KullaniciResponseDTO>();
+
+        var dbdenDonenKullanicilar =  await _dbContext.Kullanicilar.ToListAsync();
+
+        foreach (var k in dbdenDonenKullanicilar)
+        {
+            KullaniciResponseDTO kullaniciResponseDTO = new KullaniciResponseDTO();
+            
+            kullaniciResponseDTO.Id = k.Id;
+            kullaniciResponseDTO.Ad = k.Ad;
+            kullaniciResponseDTO.Soyad = k.Soyad;
+            kullaniciResponseDTO.GSM = k.GSM;
+            kullaniciResponseDTO.Email = k.Email;
+            kullaniciResponseDTO.Aktif = k.Aktif;
+            
+            kullaniciListesi.Add(kullaniciResponseDTO);
+        }
+        
+        return kullaniciListesi;
     }
 
     public async Task<bool> KullaniciSil(int kullaniciId)
@@ -132,8 +151,26 @@ public class KullaniciService : IKullaniciService
         return true;
     }
 
-    public Task<bool> KullaniciGuncelle(KullaniciGuncelleRequestDTO kullaniciGuncelleRequest)
+    public async Task<bool> KullaniciGuncelle(KullaniciGuncelleRequestDTO kullaniciGuncelleRequest)
     {
-        throw new NotImplementedException();
+        var kullanici = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(kullaniciGuncelleRequest.KullaniciId)).FirstOrDefaultAsync();
+
+        if (kullanici is null)
+        {
+            // return false;
+            throw new Exception("Böyle bir kullanıcı bulunamadı.");
+        }
+        
+        kullanici.Ad = kullaniciGuncelleRequest.Adi;
+        kullanici.Soyad = kullaniciGuncelleRequest.Soyadi;
+        kullanici.Email = kullaniciGuncelleRequest.Email;
+        kullanici.GSM = kullaniciGuncelleRequest.GSM;
+        kullanici.Sifre = kullaniciGuncelleRequest.Sifre;
+        
+        _dbContext.Kullanicilar.Update(kullanici);
+        
+        await _dbContext.SaveChangesAsync();
+        
+        return true;
     }
 }

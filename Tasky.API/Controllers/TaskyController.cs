@@ -28,6 +28,13 @@ public class TaskyController : ControllerBase
         var result = await _kullaniciService.KullaniciGetirIdyeGore(kullaniciId);
         return Ok(result);
     }
+    
+    [HttpGet("KullanicilariListele")]
+    public async Task<IActionResult> KullanicilariListele()
+    {
+        var result = await _kullaniciService.KullanicilariListele();
+        return Ok(result);
+    }
 
     [HttpDelete("KullaniciSil")]
     public async Task<IActionResult> KullaniciSil(int kullaniciId)
@@ -49,5 +56,12 @@ public class TaskyController : ControllerBase
         var result = await _kullaniciService.KullaniciyiAktifEt(kullaniciId);
         return Ok(result);
     }
-    
+
+    [HttpPut("KullaniciGuncelle")]
+    public async Task<IActionResult> KullaniciGuncelle(KullaniciGuncelleRequestDTO request)
+    {
+        var response =  await _kullaniciService.KullaniciGuncelle(request);
+        
+        return Ok(response);
+    }
 }
