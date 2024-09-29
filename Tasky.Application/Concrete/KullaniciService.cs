@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Tasky.Application.Abstraction;
+using Tasky.Application.Constans;
 using Tasky.Application.DTOs;
 using Tasky.DAL.Context;
 using Tasky.Entities.Models;
@@ -30,8 +31,25 @@ public class KullaniciService : IKullaniciService
 
         #endregion
 
-        //TODO: Validasyon eksik.
-
+        var emailValidasyon = await _dbContext.Kullanicilar.Where(k => k.Email.Equals(kullaniciOlusturRequest.Email)).FirstOrDefaultAsync();
+        
+        if (emailValidasyon is not null)
+        {
+            throw new Exception("Böyle bir mail adresi sistemde vardır ! Olusturamazsınız !");
+        }
+        
+        var gsmValidasyon = await _dbContext.Kullanicilar.Where(k => k.GSM.Equals(kullaniciOlusturRequest.GSM)).FirstOrDefaultAsync();
+        
+        if (gsmValidasyon is not null)
+        {
+            throw new Exception("Böyle bir GSM numarası sistemde vardır ! Olusturamazsınız !");
+        }
+        
+        if (kullaniciOlusturRequest.Sifre.Length < 6)
+        {
+            throw new Exception("Lütfen şifreniz 6 karakterden fazla olsun !");
+        }
+        
         Kullanici kullanici = new Kullanici()
         {
             Ad = kullaniciOlusturRequest.Ad,
@@ -65,7 +83,7 @@ public class KullaniciService : IKullaniciService
         if (kullanici is null)
         {
             // return kullaniciResponseDTO;
-            throw new Exception($" {kullaniciId} id ye sahip kullanıcı bulunamadı. !");
+            throw new Exception(BussinessConstans.KullaniciBulunamadi);
         }
 
         kullaniciResponseDTO.Id = kullanici.Id;
@@ -108,7 +126,7 @@ public class KullaniciService : IKullaniciService
 
         if (kullanici is null)
         {
-            throw new Exception($" {kullaniciId} id ye sahip kullanıcı bulunamadı. Bu sebeple silinemez !!!");
+            throw new Exception(BussinessConstans.KullaniciBulunamadi);
         }
 
         var result = _dbContext.Kullanicilar.Remove(kullanici);
@@ -126,6 +144,13 @@ public class KullaniciService : IKullaniciService
     public async Task<bool> KullaniciyiPasifeAl(int kullaniciId)
     {
         var kullanici = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(kullaniciId)).FirstOrDefaultAsync();
+
+        if (kullanici is null)
+        {
+            // return kullaniciResponseDTO;
+            throw new Exception(BussinessConstans.KullaniciBulunamadi);
+        }
+        
         kullanici.Aktif = false;
         var result = _dbContext.Kullanicilar.Update(kullanici);
         if (result is null)
@@ -140,6 +165,13 @@ public class KullaniciService : IKullaniciService
     public async Task<bool> KullaniciyiAktifEt(int kullaniciId)
     {
         var kullanici = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(kullaniciId)).FirstOrDefaultAsync();
+        
+        if (kullanici is null)
+        {
+            // return kullaniciResponseDTO;
+            throw new Exception(BussinessConstans.KullaniciBulunamadi);
+        }
+        
         kullanici.Aktif = true;
         var result = _dbContext.Kullanicilar.Update(kullanici);
         if (result is null)
@@ -158,7 +190,7 @@ public class KullaniciService : IKullaniciService
         if (kullanici is null)
         {
             // return false;
-            throw new Exception("Böyle bir kullanıcı bulunamadı.");
+            throw new Exception(BussinessConstans.KullaniciBulunamadi);
         }
         
         kullanici.Ad = kullaniciGuncelleRequest.Adi;

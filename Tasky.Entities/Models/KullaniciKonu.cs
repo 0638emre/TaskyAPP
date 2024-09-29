@@ -9,4 +9,6 @@ public class KullaniciKonu
 
     public int KonuId { get; set; }
     public Konu Konu { get; set; }
+    
+    public DateTime KayitTarihi { get; set; }
 }

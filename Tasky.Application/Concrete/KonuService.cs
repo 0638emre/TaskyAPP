@@ -1,6 +1,9 @@
+using Microsoft.EntityFrameworkCore;
 using Tasky.Application.Abstraction;
+using Tasky.Application.Constans;
 using Tasky.Application.DTOs;
 using Tasky.DAL.Context;
+using Tasky.Entities.Models;
 
 namespace Tasky.Application.Concrete;
 
@@ -13,28 +16,103 @@ public class KonuService : IKonuService
         _dbContext = context;
     }
     
-    public Task<bool> KonuEkle(string konuAd)
+    public async Task<bool> KonuEkle(string konuAd)
     {
-        throw new NotImplementedException();
+        //VALİDATION dan geçirmem lazım.
+        var konu = await _dbContext.Konular.Where(k => k.KonuAdi.Equals(konuAd)).FirstOrDefaultAsync();
+
+        if (konu is not null)
+        {
+            throw new Exception("Konu zaten daha önce eklenmiş. Başka bir konu ekleyiniz.");
+        }
+        
+        var result = await _dbContext.Konular.AddAsync(new Konu()
+        {
+            KonuAdi = konuAd
+        });
+
+        if (result is null)
+        {
+            throw new Exception("Konu eklenemedi");
+        }
+        
+        await _dbContext.SaveChangesAsync();
+
+        return true; 
     }
 
-    public Task<bool> KonuSil(int konuId)
+    public async Task<bool> KonuSil(int konuId)
     {
-        throw new NotImplementedException();
+        var konu = await _dbContext.Konular.Where(k => k.Id.Equals(konuId)).FirstOrDefaultAsync();
+
+        if (konu is null)
+        {
+            throw new Exception(BussinessConstans.KonuBulunamadi);
+        }
+
+        _dbContext.Konular.Remove(konu);
+        
+        await _dbContext.SaveChangesAsync(); 
+        
+        return true;
     }
 
-    public Task<bool> KonuGuncelle(int konuId, string konuAd)
+    public async Task<bool> KonuGuncelle(int konuId, string konuAd)
     {
-        throw new NotImplementedException();
+        var konu = await _dbContext.Konular.Where(k => k.Id.Equals(konuId)).FirstOrDefaultAsync();
+        
+        if (konu is null)
+        {
+            throw new Exception(BussinessConstans.KonuBulunamadi);
+        }
+        
+        konu.KonuAdi = konuAd;
+        
+        _dbContext.Konular.Update(konu);
+        
+        await _dbContext.SaveChangesAsync();
+
+        return true;
     }
 
-    public Task<List<KonuResponseDTO>> KonulariListele()
+    public async Task<List<KonuResponseDTO>> KonulariListele()
     {
-        throw new NotImplementedException();
+        List<KonuResponseDTO> konulariListele = new List<KonuResponseDTO>();
+        
+        var konularListesi = await _dbContext.Konular.ToListAsync();
+
+        if (konularListesi.Count < 1)
+        {
+            throw new Exception(BussinessConstans.KonuBulunamadi); 
+        }
+
+        foreach (var kk in konularListesi)
+        {
+            KonuResponseDTO konuResponseDto = new KonuResponseDTO();
+            konuResponseDto.KonuId = kk.Id;
+            konuResponseDto.KonuAdi = kk.KonuAdi;
+            
+            konulariListele.Add(konuResponseDto);
+        }
+
+        return konulariListele;
+
     }
 
-    public Task<KonuResponseDTO> KonuGetirIdyeGore(int konuId)
+    public async Task<KonuResponseDTO> KonuGetirIdyeGore(int konuId)
     {
-        throw new NotImplementedException();
+        KonuResponseDTO konuResponseDto = new KonuResponseDTO();
+        
+        var konu = await _dbContext.Konular.Where(k => k.Id.Equals(konuId)).FirstOrDefaultAsync();
+        
+        if (konu is null)
+        {
+            throw new Exception(BussinessConstans.KonuBulunamadi);
+        }
+
+        konuResponseDto.KonuId = konu.Id;
+        konuResponseDto.KonuAdi = konu.KonuAdi;
+
+        return konuResponseDto;
     }
 }
