@@ -4,4 +4,5 @@ public static class BussinessConstans
 {
     public const string KonuBulunamadi = "Herhangi bir konu bulunamadı.";
     public const string KullaniciBulunamadi = "Herhangi bir kullanıcı bulunamadı.";
+    public const string CeteleEklenemedi = "Çetele ekleme işlemi başarısız !";
 }
