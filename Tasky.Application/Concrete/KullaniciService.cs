@@ -75,7 +75,7 @@ public class KullaniciService : IKullaniciService
     public async Task<KullaniciResponseDTO> KullaniciGetirIdyeGore(int kullaniciId)
     {
         //instance
-        KullaniciResponseDTO kullaniciResponseDTO = new KullaniciResponseDTO();
+        // KullaniciResponseDTO kullaniciResponseDTO = new KullaniciResponseDTO();
 
         var kullanici = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(kullaniciId)).FirstOrDefaultAsync();
         // TODO : first ile single arasındaki fark nedir ?
@@ -86,14 +86,15 @@ public class KullaniciService : IKullaniciService
             throw new Exception(BussinessConstans.KullaniciBulunamadi);
         }
 
-        kullaniciResponseDTO.Id = kullanici.Id;
-        kullaniciResponseDTO.Ad = kullanici.Ad;
-        kullaniciResponseDTO.Soyad = kullanici.Soyad;
-        kullaniciResponseDTO.Email = kullanici.Email;
-        kullaniciResponseDTO.GSM = kullanici.GSM;
-        kullaniciResponseDTO.Aktif = kullanici.Aktif;
-
-        return kullaniciResponseDTO;
+        return new KullaniciResponseDTO()
+        {
+            Id = kullanici.Id,
+            Ad = kullanici.Ad,
+            Soyad = kullanici.Soyad,
+            Email = kullanici.Email,
+            GSM = kullanici.GSM,
+            Aktif = kullanici.Aktif,
+        };
     }
 
     public async Task<List<KullaniciResponseDTO>> KullanicilariListele()
@@ -204,5 +205,35 @@ public class KullaniciService : IKullaniciService
         await _dbContext.SaveChangesAsync();
         
         return true;
+    }
+
+    public async Task<ResponseDTO> GirisYap(string email, string sifre)
+    {
+        var kullanici = await _dbContext.Kullanicilar.Where(k => k.Email.Equals(email)).FirstOrDefaultAsync();
+        
+        if (kullanici is null)
+        {
+            return new ResponseDTO()//object initialize
+            {
+                Message = BussinessConstans.KullaniciMailBulunamadi,
+                Success = false
+            };
+        }
+
+        if (kullanici.Sifre.Equals(sifre))
+        {
+            return new()
+            {
+                Message = BussinessConstans.KullaniciGirisiBasarili,
+                Success = true
+            };
+        }
+        
+        return new()
+        {
+            Message = BussinessConstans.KullaniciGirisiBasarisiz,
+            Success = false
+        };
+        
     }
 }

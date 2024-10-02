@@ -64,4 +64,12 @@ public class KullaniciController : ControllerBase
         
         return Ok(response);
     }
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GirisYap(string mail, string sifre)
+    {
+        var response = await _kullaniciService.GirisYap(mail, sifre);
+        
+        return Ok(response);
+    }
 }

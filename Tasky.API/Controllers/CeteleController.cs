@@ -29,6 +29,30 @@ public class CeteleController : ControllerBase
         var result = await _kullaniciKonuService.CeteleGetirKullaniciIdyeGore(kullaniciId);
         
         return Ok(result);
+    } 
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> CeteleGetirIdyeGore(int ceteleId)
+    {
+        var result = await _kullaniciKonuService.CeteleGetirIdyeGore(ceteleId);
+        
+        return Ok(result);
+    }   
+    
+    [HttpDelete("[action]")]
+    public async Task<IActionResult> CeteleSil(int ceteleId)
+    {
+        var result = await _kullaniciKonuService.CeteleSil(ceteleId);
+        
+        return Ok(result);
+    }  
+    
+    [HttpGet("[action]")]
+    public async Task<IActionResult> CeteleListesi()
+    {
+        var result = await _kullaniciKonuService.CeteleListesi();
+        
+        return Ok(result);
     }
-   
+    
 }

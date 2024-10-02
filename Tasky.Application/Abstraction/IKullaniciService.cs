@@ -13,8 +13,11 @@ public interface IKullaniciService
     Task<bool> KullaniciSil(int kullaniciId);
 
     Task<bool> KullaniciyiPasifeAl(int kullaniciId);
+    
     Task<bool> KullaniciyiAktifEt(int kullaniciId);
     
     Task<bool> KullaniciGuncelle(KullaniciGuncelleRequestDTO kullaniciGuncelleRequest);
-    
+
+    Task<ResponseDTO> GirisYap(string email, string sifre);
+
 }

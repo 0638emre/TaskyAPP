@@ -7,8 +7,10 @@ public interface IKullaniciKonuService
     Task<bool> BugunTamamladim(int kullaniciId, int konuId);
 
     Task<List<CeteleGetirResponseDTO>> CeteleGetirKullaniciIdyeGore(int kullaniciId);
+
+    Task<CeteleGetirResponseDTO> CeteleGetirIdyeGore(int ceteleId);
+
+    Task<bool> CeteleSil(int ceteleId);
     
-    //TODO: ceteleId ye göre cetele getir
-    //TODO: cetele sil id ye göre
-    //TODO: tüm ceteleyi dön
+    Task<List<CeteleGetirResponseDTO>> CeteleListesi();
 }
