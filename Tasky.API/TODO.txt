@@ -1,0 +1,28 @@
+1. adım > yetki diye bir tablo 
+                        kolonlar 
+                        1. kolon ----- int Id
+                        2. kolon ----- string YetkiAdi
+                        
+2. adım > kullaniciyetki diye bir tablo
+                        kolonlar 
+                        1. kolon ----- int Id
+                        2. kolon ----- int KullaniciId(*)
+                        3. kolon ----- int YetkiId(*)
+          
+3. adım > yetki servisi yazılacak. 
+                        1- yetkiekle metodu
+                        2- yetki sil metodu
+                        3- yetkigetiridyegöre metodu
+                        4- tüm yetkileri listele metodu
+                        5- yetkigunccele
+                        
+4. adım > yetki kontroller yapılacak ve TEST EDİLECEK
+                        
+5. adım > kullaniciyetki servisi
+                        1- kullanıcıyayetkiver (x kişisine , y yetkisi)
+                        2- kullanıcıyetkigetir(kullanici id)
+                        3- tümkullanıcılarınyetkilerini getir()
+                        
+6. adım > kullaniciyetki kontroller yapılacak ve TEST EDİLECEK
+                     
+                        
