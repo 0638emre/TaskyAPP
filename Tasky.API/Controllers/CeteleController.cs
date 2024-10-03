@@ -14,6 +14,8 @@ public class CeteleController : ControllerBase
         _kullaniciKonuService = kullaniciKonuService;
     }
 
+    //test
+
     [HttpPost("[action]")]
     public async Task<IActionResult> BugunTamamladim(int kullaniciId, int konuId)
     {
