@@ -5,7 +5,25 @@ using Tasky.DAL.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var emreAllowSomeCors = "emre.coskun";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(emreAllowSomeCors,
+        policy =>
+        {
+            policy
+                .WithOrigins(
+                    "http://localhost:3000") // İzin vermek istediğiniz istemci adresini ekleyin
+                // .WithOrigins("*")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                // .AllowAnyOrigin()
+                .SetIsOriginAllowedToAllowWildcardSubdomains()
+                ;
+        });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,5 +52,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(emreAllowSomeCors);
 
 app.Run();
