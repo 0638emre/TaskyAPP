@@ -8,7 +8,10 @@
                         1. kolon ----- int Id
                         2. kolon ----- int KullaniciId(*)
                         3. kolon ----- int YetkiId(*)
-          
+                        4.kolon ------ datetime kayittarihi
+
+
+
 3. adım > yetki servisi yazılacak. 
                         1- yetkiekle metodu
                         2- yetki sil metodu

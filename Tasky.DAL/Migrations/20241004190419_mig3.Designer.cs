@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tasky.DAL.Context;
 
@@ -11,9 +12,11 @@ using Tasky.DAL.Context;
 namespace Tasky.DAL.Migrations
 {
     [DbContext(typeof(TaskDBContext))]
-    partial class TaskDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241004190419_mig3")]
+    partial class mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,9 +112,6 @@ namespace Tasky.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("KayitTarihi")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("KullaniciId")
                         .HasColumnType("int");
 
@@ -119,11 +119,6 @@ namespace Tasky.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KullaniciId")
-                        .IsUnique();
-
-                    b.HasIndex("YetkiId");
 
                     b.ToTable("KullaniciYetkiler");
                 });
@@ -164,25 +159,6 @@ namespace Tasky.DAL.Migrations
                     b.Navigation("Kullanici");
                 });
 
-            modelBuilder.Entity("Tasky.Entities.Models.KullaniciYetki", b =>
-                {
-                    b.HasOne("Tasky.Entities.Models.Kullanici", "Kullanici")
-                        .WithOne("YeKullaniciYetkitki")
-                        .HasForeignKey("Tasky.Entities.Models.KullaniciYetki", "KullaniciId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tasky.Entities.Models.Yetki", "Yetki")
-                        .WithMany("KullaniciYetkileri")
-                        .HasForeignKey("YetkiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kullanici");
-
-                    b.Navigation("Yetki");
-                });
-
             modelBuilder.Entity("Tasky.Entities.Models.Konu", b =>
                 {
                     b.Navigation("KullaniciKonular");
@@ -191,14 +167,6 @@ namespace Tasky.DAL.Migrations
             modelBuilder.Entity("Tasky.Entities.Models.Kullanici", b =>
                 {
                     b.Navigation("KullaniciKonular");
-
-                    b.Navigation("YeKullaniciYetkitki")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tasky.Entities.Models.Yetki", b =>
-                {
-                    b.Navigation("KullaniciYetkileri");
                 });
 #pragma warning restore 612, 618
         }

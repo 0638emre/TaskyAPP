@@ -10,4 +10,5 @@ public class Kullanici
     public string Sifre { get; set; } 
     public bool Aktif { get; set; }
     public ICollection<KullaniciKonu> KullaniciKonular { get; set; }
+    public KullaniciYetki YeKullaniciYetkitki { get; set; }
 }
