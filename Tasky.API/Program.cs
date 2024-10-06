@@ -35,7 +35,8 @@ builder.Services.AddDbContext<TaskDBContext>(opt => opt.UseSqlServer(builder.Con
 builder.Services.AddScoped<IKullaniciService, KullaniciService>();
 builder.Services.AddScoped<IKonuService, KonuService>();
 builder.Services.AddScoped<IKullaniciKonuService, KullaniciKonuService>();
-
+builder.Services.AddScoped<IYetkiService, YetkiService>();
+//TODO:KULLANİCİYETKİSERVİCE
 //best practice değil!!
 
 var app = builder.Build();
