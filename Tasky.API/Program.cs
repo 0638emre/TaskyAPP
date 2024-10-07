@@ -32,11 +32,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<TaskDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("TaskyDB")));
 
+
+//IOC Container
 builder.Services.AddScoped<IKullaniciService, KullaniciService>();
 builder.Services.AddScoped<IKonuService, KonuService>();
 builder.Services.AddScoped<IKullaniciKonuService, KullaniciKonuService>();
 builder.Services.AddScoped<IYetkiService, YetkiService>();
 builder.Services.AddScoped<IKullaniciYetkiService, KullaniciYetkiService>();
+builder.Services.AddScoped<ILugatService, LugatService>();
 //best practice değil!!
 
 var app = builder.Build();

@@ -1,7 +1,13 @@
-5. adım > kullaniciyetki servisi
-                        2- kullanıcıyetkigetir(kullanici id)
-                        3- tümkullanıcılarınyetkilerini getir()
-                        
-6. adım > kullaniciyetki kontroller yapılacak ve TEST EDİLECEK
-                     
-                        
+Iletisim diye bir entity
+                1- Id int
+                2- KullaniciId int *** ilişkisel olacak
+                3- EvAdres string
+                4- IsAdres string
+                5- PostaKodu int
+                7- KanGrubu string
+                8- Il string
+                9- Ilce string
+                10- Memleket string
+                11- AracPlaka string (nullable olabilsin) 
+                
+iletisim controller yaz ve test et !

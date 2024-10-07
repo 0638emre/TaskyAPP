@@ -8,7 +8,6 @@ namespace Tasky.API.Controllers;
 [Route("[controller]")]
 public class KonuController : ControllerBase
 {
-   
    private readonly IKonuService _konuService;
    public KonuController(IKonuService konuService)
    {

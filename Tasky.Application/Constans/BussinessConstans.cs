@@ -16,5 +16,8 @@ public static class BussinessConstans
     public const string YetkiListelenemedi = "Yetki listelenemedi !";
     public const string YetkiSilinemedi = "Yetki silinemedi !";
     public const string KullaniciyaAitYetkiBulunamadi = "Kullanıcıya ait yetki bulunamadı !";
+    public const string KullaniciyeAitOzluSozBulunmaktadir = "Kullanıcıya ait özlü söz zaten bulunmaktadır. !";
+    public const string KullaniciyeAitOzluSozEklenemedi = "Kullanıcıya ait özlü söz eklenemedi. !";
+    public const string HerhangiBirOzluSozBulunamadi = "Herhangi bir özlu söz bulunamadı. !";
 
 }
