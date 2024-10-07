@@ -1,14 +1,14 @@
 1. adım > yetki diye bir tablo 
                         kolonlar 
-                        1. kolon ----- int Id
-                        2. kolon ----- string YetkiAdi
+                        1. kolon ----- int Id*
+                        2. kolon ----- string YetkiAdi*
                         
 2. adım > kullaniciyetki diye bir tablo
                         kolonlar 
-                        1. kolon ----- int Id
-                        2. kolon ----- int KullaniciId(*)
-                        3. kolon ----- int YetkiId(*)
-                        4.kolon ------ datetime kayittarihi
+                        1. kolon ----- int Id*
+                        2. kolon ----- int KullaniciId(*)*
+                        3. kolon ----- int YetkiId(*)*
+                        4.kolon ------ datetime kayittarihi*
 
 
 

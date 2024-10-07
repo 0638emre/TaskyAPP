@@ -36,7 +36,7 @@ builder.Services.AddScoped<IKullaniciService, KullaniciService>();
 builder.Services.AddScoped<IKonuService, KonuService>();
 builder.Services.AddScoped<IKullaniciKonuService, KullaniciKonuService>();
 builder.Services.AddScoped<IYetkiService, YetkiService>();
-//TODO:KULLANİCİYETKİSERVİCE
+builder.Services.AddScoped<IKullaniciYetkiService, KullaniciYetkiService>();
 //best practice değil!!
 
 var app = builder.Build();
