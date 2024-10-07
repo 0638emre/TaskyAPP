@@ -27,7 +27,7 @@ namespace Tasky.Application.Concrete
 
             if (yetki is not null)
             {
-                throw new Exception("Yetki ekleme işlemi zaten yapılmış. Başka bir yetki ekleyiniz");
+                throw new Exception(BussinessConstans.YetkiEklenmiş);
             }
 
             var result = await _dbContext.Yetkiler.AddAsync(new Yetki()
@@ -37,7 +37,7 @@ namespace Tasky.Application.Concrete
 
             if (result is null)
             {
-                throw new Exception("Yetki eklenemedi");
+                throw new Exception(BussinessConstans.YetkiEklenemedi);
             }
 
             await _dbContext.SaveChangesAsync();
@@ -53,7 +53,7 @@ namespace Tasky.Application.Concrete
 
             if (yetki is null)
             {
-                throw new Exception("Herhangi bir yetki bulunamadı.");
+                throw new Exception(BussinessConstans.YetkiBulunamadi);
             }
 
             yetkiResponseDto.YetkiId = yetki.Id;
@@ -69,7 +69,7 @@ namespace Tasky.Application.Concrete
 
             if (yetki is null)
             {
-                throw new Exception("Herhangi bir yetki bulunamadı.");
+                throw new Exception(BussinessConstans.YetkiBulunamadi);
             }
 
             yetki.YetkiAdi = yetkiAdi;
@@ -89,7 +89,7 @@ namespace Tasky.Application.Concrete
 
             if (yetkiListesi.Count < 1)
             {
-                throw new Exception("Yetkiler Listelenemedi");
+                throw new Exception(BussinessConstans.YetkiListelenemedi);
             }
 
             foreach (var yl in yetkiListesi)
@@ -112,7 +112,7 @@ namespace Tasky.Application.Concrete
 
             if (yetki is null)
             {
-                throw new Exception("Yetki Silinemedi");
+                throw new Exception(BussinessConstans.YetkiSilinemedi);
             }
 
            _dbContext.Yetkiler.Remove(yetki);

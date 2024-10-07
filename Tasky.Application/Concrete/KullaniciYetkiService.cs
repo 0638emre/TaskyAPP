@@ -27,9 +27,9 @@ namespace Tasky.Application.Concrete
         {
             var yetkiVer = await _dbContext.Yetkiler.Where(k => k.Id.Equals(yetkiId)).AnyAsync();
 
-            if (!yetkiVer) 
+            if (!yetkiVer)
             {
-                throw new Exception("Yetki bulunamadı!");
+                throw new Exception(BussinessConstans.YetkiBulunamadi);
             }
 
             var kullaniciKontrol = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(kullaniciId)).AnyAsync();
@@ -50,7 +50,7 @@ namespace Tasky.Application.Concrete
 
             if (result is null)
             {
-                throw new ApplicationException("Kullanıcıya yetki eklenemedi!");
+                throw new ApplicationException(BussinessConstans.YetkiEklenemedi);
             }
 
             await _dbContext.SaveChangesAsync();
@@ -58,14 +58,60 @@ namespace Tasky.Application.Concrete
             return true;
         }
 
-        public Task<YetkiGetirResponseDTO> YetkiGetirKullaniciIdyeGore(int kullaniciId)
+        public async Task<List<KullaniciYetkiGetirResponseDTO>> KullanicilarinYetkiListesi()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            var datas = await _dbContext.KullaniciYetkiler
+            .Include(k => k.Yetki)
+            .Include(k => k.Kullanici)
+            .OrderBy(k => k.Id).ToListAsync();
+
+            List<KullaniciYetkiGetirResponseDTO> yetkiGetirList = new();
+
+            foreach (var yetki in datas)
+            {
+                KullaniciYetkiGetirResponseDTO yetkiGetirResponseDto = new();
+                yetkiGetirResponseDto.Id = yetki.Id;
+                yetkiGetirResponseDto.KullaniciId = yetki.KullaniciId;
+                yetkiGetirResponseDto.YetkiId = yetki.YetkiId;
+                yetkiGetirResponseDto.YetkiAdi = yetki.Yetki.YetkiAdi;
+                yetkiGetirResponseDto.YetkiTarihi = yetki.KayitTarihi;
+                yetkiGetirResponseDto.KullaniciAdSoyad = yetki.Kullanici.Ad + " " + yetki.Kullanici.Soyad;
+
+                yetkiGetirList.Add(yetkiGetirResponseDto);
+            }
+
+            return yetkiGetirList;
+
+
         }
 
-        public Task<List<KullaniciYetkiGetirResponseDTO>> KullanicilarinYetkiListesi()
+        public async Task<KullaniciYetkiGetirResponseDTO> YetkiGetirKullaniciIdyeGore(int kullaniciId)
         {
-            throw new NotImplementedException();
+            var kullanici = await _dbContext.Kullanicilar.Where(k => k.Id == kullaniciId).FirstOrDefaultAsync();
+            if (kullanici is null)
+            {
+                throw new Exception(BussinessConstans.KullaniciBulunamadi);
+            }
+
+            var result = await _dbContext.KullaniciYetkiler.Include(k => k.Yetki)
+              .Include(k => k.Kullanici).Where(k => k.KullaniciId == kullaniciId).FirstOrDefaultAsync();
+
+            if (result is null)
+            {
+                throw new Exception(BussinessConstans.KullaniciyaAitYetkiBulunamadi);
+            }
+
+            KullaniciYetkiGetirResponseDTO response = new();
+            response.Id = result.Id;
+            response.YetkiId = result.YetkiId;
+            response.KullaniciId = result.KullaniciId;
+            response.YetkiAdi = result.Yetki.YetkiAdi;
+            response.YetkiTarihi = result.KayitTarihi;
+            response.KullaniciAdSoyad = result.Kullanici.Ad + " " + result.Kullanici.Soyad;
+
+            return response;
         }
     }
 }

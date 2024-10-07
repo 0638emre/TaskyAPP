@@ -24,4 +24,20 @@ public class KullaniciYetkiController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("[action]")]
+    public async Task<IActionResult> YetkiGetirKullaniciIdyeGore(int kullaniciId)
+    {
+        var result = await _kullaniciYetkiService.YetkiGetirKullaniciIdyeGore(kullaniciId);
+
+        return Ok(result);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> KullanicilarinYetkiListesi()
+    {
+        var result = await _kullaniciYetkiService.KullanicilarinYetkiListesi();
+
+        return Ok(result);
+    }
+
 }

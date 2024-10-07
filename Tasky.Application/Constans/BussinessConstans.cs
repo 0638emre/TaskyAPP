@@ -10,4 +10,11 @@ public static class BussinessConstans
     public const string KullaniciMailBulunamadi = "Sistemde böyle bir mail adresi bulunamadı.";
     public const string KullaniciGirisiBasarili = "Hoşgeldiniz !";
     public const string KullaniciGirisiBasarisiz = "Şifreniz yanlış !";
+    public const string YetkiBulunamadi = "Yetki bulunamadı !";
+    public const string YetkiEklenemedi = "Yetki eklenemedi !";
+    public const string YetkiEklenmiş = "Yetki zaten eklenmiş !";
+    public const string YetkiListelenemedi = "Yetki listelenemedi !";
+    public const string YetkiSilinemedi = "Yetki silinemedi !";
+    public const string KullaniciyaAitYetkiBulunamadi = "Kullanıcıya ait yetki bulunamadı !";
+
 }

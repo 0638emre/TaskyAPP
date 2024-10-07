@@ -11,7 +11,7 @@ namespace Tasky.Application.Abstraction
     {
         Task<bool> KullaniciyaYetkiVer(int kullaniciId, int yetkiId);
 
-        Task<YetkiGetirResponseDTO> YetkiGetirKullaniciIdyeGore(int kullaniciId);
+        Task<KullaniciYetkiGetirResponseDTO> YetkiGetirKullaniciIdyeGore(int kullaniciId);
 
         Task<List<KullaniciYetkiGetirResponseDTO>> KullanicilarinYetkiListesi();
         
