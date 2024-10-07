@@ -9,11 +9,11 @@ namespace Tasky.Application.Abstraction
 {
     public interface IKullaniciYetkiService
     {
-
         Task<bool> KullaniciyaYetkiVer(int kullaniciId, int yetkiId);
 
-        Task<List<YetkiGetirResponseDTO>> YetkiGetirKullaniciIdyeGore(int kullaniciId);
+        Task<YetkiGetirResponseDTO> YetkiGetirKullaniciIdyeGore(int kullaniciId);
 
-        Task<List<YetkiGetirResponseDTO>> YetkiListesi();
+        Task<List<KullaniciYetkiGetirResponseDTO>> KullanicilarinYetkiListesi();
+        
     }
 }

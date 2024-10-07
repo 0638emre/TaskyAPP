@@ -25,7 +25,6 @@ namespace Tasky.Application.Concrete
 
         public async Task<bool> KullaniciyaYetkiVer(int kullaniciId, int yetkiId)
         {
-            //throw new NotImplementedException();
             var yetkiVer = await _dbContext.Yetkiler.Where(k => k.Id.Equals(yetkiId)).AnyAsync();
 
             if (!yetkiVer) 
@@ -59,12 +58,12 @@ namespace Tasky.Application.Concrete
             return true;
         }
 
-        public Task<List<YetkiGetirResponseDTO>> YetkiGetirKullaniciIdyeGore(int kullaniciId)
+        public Task<YetkiGetirResponseDTO> YetkiGetirKullaniciIdyeGore(int kullaniciId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<YetkiGetirResponseDTO>> YetkiListesi()
+        public Task<List<KullaniciYetkiGetirResponseDTO>> KullanicilarinYetkiListesi()
         {
             throw new NotImplementedException();
         }
