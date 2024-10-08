@@ -11,4 +11,5 @@ public class Kullanici
     public bool Aktif { get; set; }
     public ICollection<KullaniciKonu> KullaniciKonular { get; set; }
     public KullaniciYetki YeKullaniciYetkitki { get; set; }
+
 }

@@ -19,5 +19,6 @@ public static class BussinessConstans
     public const string KullaniciyeAitOzluSozBulunmaktadir = "Kullanıcıya ait özlü söz zaten bulunmaktadır. !";
     public const string KullaniciyeAitOzluSozEklenemedi = "Kullanıcıya ait özlü söz eklenemedi. !";
     public const string HerhangiBirOzluSozBulunamadi = "Herhangi bir özlu söz bulunamadı. !";
+    public const string IletisimBilgileriBulunamadi = "İletişim bilgisi bulunamadı !";
 
 }
