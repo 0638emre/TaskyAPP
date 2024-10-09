@@ -48,9 +48,32 @@ namespace Tasky.Application.Concrete
             return true;
         }
 
-        public Task<bool> IletisimBilgiGuncelle(IletisimGuncelleRequestDTO iletisimGuncelleRequest)
+        public async Task<bool> IletisimBilgiGuncelle(IletisimGuncelleRequestDTO iletisimGuncelleRequest)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            var iletisim = await _dbContext.Iletisimler.Where(i => i.Id == iletisimGuncelleRequest.Id).FirstOrDefaultAsync();
+
+            if (iletisim is null)
+            {
+                throw new Exception(BussinessConstans.KullaniciBulunamadi);
+            }
+
+            iletisim.Id = iletisimGuncelleRequest.Id;
+            iletisim.KullaniciId = iletisimGuncelleRequest.KullaniciId;
+            iletisim.EvAdres = iletisimGuncelleRequest.EvAdres;
+            iletisim.IsAdres = iletisimGuncelleRequest.IsAdres;
+            iletisim.PostaKodu = iletisimGuncelleRequest.PostaKodu;
+            iletisim.KanGrubu = iletisimGuncelleRequest.KanGrubu;
+            iletisim.Il = iletisimGuncelleRequest.Il;
+            iletisim.Ilce = iletisimGuncelleRequest.Ilce;
+            iletisim.Memleket = iletisimGuncelleRequest.Memleket;
+            iletisim.AracPlaka = iletisimGuncelleRequest.AracPlaka;
+
+            _dbContext.Iletisimler.Update(iletisim);
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public Task<List<IletisimResponseDTO>> IletisimBilgiListele()
@@ -58,9 +81,10 @@ namespace Tasky.Application.Concrete
             throw new NotImplementedException();
         }
 
-        public Task<bool> IletisimBilgiSil(int Id)
+        public async Task<bool> IletisimBilgiSil(int Id)
         {
             throw new NotImplementedException();
+
         }
     }
 }

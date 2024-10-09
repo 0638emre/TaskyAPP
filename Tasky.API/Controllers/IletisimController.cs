@@ -24,5 +24,13 @@ namespace Tasky.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> IletisimBilgiGuncelle(IletisimGuncelleRequestDTO iletisimGuncelleRequest)
+        {
+            var result = await _iletisimService.IletisimBilgiGuncelle(iletisimGuncelleRequest);
+
+            return Ok(result);
+        }
     }
 }
