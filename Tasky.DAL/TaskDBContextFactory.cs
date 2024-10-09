@@ -10,8 +10,8 @@ public class TaskDBContextFactory : IDesignTimeDbContextFactory<TaskDBContext>
     {
         var optionsBuilder = new DbContextOptionsBuilder<TaskDBContext>();
         //optionsBuilder.UseSqlServer("Server=localhost, 1433; Database=TaskyDB;User ID=sa;Password=reallyStrongPwd123;TrustServerCertificate=True;");
-        
-        optionsBuilder.UseSqlServer("Server=AEC;Database=TaskyDB;Integrated Security=True;TrustServerCertificate=True;");
+        // optionsBuilder.UseSqlServer("Server=AEC;Database=TaskyDB;Integrated Security=True;TrustServerCertificate=True;");
+        optionsBuilder.UseSqlServer("Server=91.241.49.224, 1433;Database=TaskyDB;User ID=sa;Password=010203Ankara;TrustServerCertificate=True;");
 
         return new TaskDBContext(optionsBuilder.Options);
     }
