@@ -18,25 +18,28 @@ namespace Tasky.Application.Concrete
 
         public async Task<bool> IletisimBilgiEkle(IletisimEkleRequestDTO iletisimEkleRequest)
         {
-            var iletisim = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(iletisimEkleRequest.KullaniciId)).FirstOrDefaultAsync();
+            var kullanici = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(iletisimEkleRequest.KullaniciId)).FirstOrDefaultAsync();
 
-            if (iletisim is null) 
+            if (kullanici is null)
             {
                 throw new Exception(BussinessConstans.KullaniciBulunamadi);
             }
 
-            var result = await _dbContext.Iletisimler.AddAsync(new Iletisim()
+            Iletisim iletisim = new Iletisim()
             {
-                  EvAdres= iletisimEkleRequest.EvAdres,
-                  KullaniciId = iletisimEkleRequest.KullaniciId,
-                  IsAdres = iletisimEkleRequest.IsAdres,
-                  PostaKodu = iletisimEkleRequest.PostaKodu,
-                  KanGrubu = iletisimEkleRequest.KanGrubu,
-                  Il = iletisimEkleRequest.Il,
-                  Ilce = iletisimEkleRequest.Ilce,
-                  Memleket = iletisimEkleRequest.Memleket,
-                  AracPlaka = iletisimEkleRequest.AracPlaka 
-            });
+                EvAdres = iletisimEkleRequest.EvAdres,
+                KullaniciId = iletisimEkleRequest.KullaniciId,
+                IsAdres = iletisimEkleRequest.IsAdres,
+                PostaKodu = iletisimEkleRequest.PostaKodu,
+                KanGrubu = iletisimEkleRequest.KanGrubu,
+                Il = iletisimEkleRequest.Il,
+                Ilce = iletisimEkleRequest.Ilce,
+                Memleket = iletisimEkleRequest.Memleket,
+                AracPlaka = iletisimEkleRequest.AracPlaka
+            };
+
+            var result = await _dbContext.Iletisimler.AddAsync(iletisim);
+
 
             if (result is null)
             {
@@ -46,6 +49,7 @@ namespace Tasky.Application.Concrete
             await _dbContext.SaveChangesAsync();
 
             return true;
+
         }
 
         public async Task<bool> IletisimBilgiGuncelle(IletisimGuncelleRequestDTO iletisimGuncelleRequest)
@@ -76,14 +80,47 @@ namespace Tasky.Application.Concrete
             return true;
         }
 
-        public Task<List<IletisimResponseDTO>> IletisimBilgiListele()
+        public async Task<List<IletisimResponseDTO>> IletisimBilgiListele()
         {
-            throw new NotImplementedException();
+            List<IletisimResponseDTO> iletisimListesi = new List<IletisimResponseDTO>();
+
+            var dbdenDonenIletisimler = await _dbContext.Iletisimler.ToListAsync();
+
+            foreach (var k in dbdenDonenIletisimler)
+            {
+                IletisimResponseDTO iletisimResponse = new IletisimResponseDTO();
+
+                iletisimResponse.Id = k.Id;
+                iletisimResponse.KullaniciId = k.KullaniciId;
+                iletisimResponse.KanGrubu = k.KanGrubu;
+                iletisimResponse.AracPlaka = k.AracPlaka;
+                iletisimResponse.Il = k.Il;
+                iletisimResponse.Ilce = k.Ilce;
+                iletisimResponse.EvAdres = k.EvAdres;
+                iletisimResponse.IsAdres = k.IsAdres;
+
+
+                iletisimListesi.Add(iletisimResponse);
+            }
+
+            return iletisimListesi;
         }
 
         public async Task<bool> IletisimBilgiSil(int Id)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            var iletisim = await _dbContext.Iletisimler.Where(k => k.Id.Equals(Id)).FirstOrDefaultAsync();
+
+            if (iletisim is null)
+            {
+                throw new Exception(BussinessConstans.IletisimBilgileriBulunamadi);
+            }
+
+            _dbContext.Iletisimler.Remove(iletisim);
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
 
         }
     }

@@ -12,8 +12,8 @@ using Tasky.DAL.Context;
 namespace Tasky.DAL.Migrations
 {
     [DbContext(typeof(TaskDBContext))]
-    [Migration("20241008070440_202408101004")]
-    partial class _202408101004
+    [Migration("20241011081355_202411101112")]
+    partial class _202411101112
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace Tasky.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AaracPlaka")
+                    b.Property<string>("AracPlaka")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -69,9 +69,30 @@ namespace Tasky.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KullaniciId");
+                    b.HasIndex("KullaniciId")
+                        .IsUnique();
 
-                    b.ToTable("Iletisim");
+                    b.ToTable("Iletisimler");
+                });
+
+            modelBuilder.Entity("Tasky.Entities.Models.Kategori", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("KategoriAdi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kategori");
                 });
 
             modelBuilder.Entity("Tasky.Entities.Models.Konu", b =>
@@ -89,6 +110,29 @@ namespace Tasky.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Konular");
+                });
+
+            modelBuilder.Entity("Tasky.Entities.Models.KonuKategori", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("KategoriId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KonuId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KategoriId");
+
+                    b.HasIndex("KonuId");
+
+                    b.ToTable("KonuKategori");
                 });
 
             modelBuilder.Entity("Tasky.Entities.Models.Kullanici", b =>
@@ -222,12 +266,31 @@ namespace Tasky.DAL.Migrations
             modelBuilder.Entity("Tasky.Entities.Models.Iletisim", b =>
                 {
                     b.HasOne("Tasky.Entities.Models.Kullanici", "Kullanici")
-                        .WithMany()
-                        .HasForeignKey("KullaniciId")
+                        .WithOne("KullaniciIletisim")
+                        .HasForeignKey("Tasky.Entities.Models.Iletisim", "KullaniciId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Kullanici");
+                });
+
+            modelBuilder.Entity("Tasky.Entities.Models.KonuKategori", b =>
+                {
+                    b.HasOne("Tasky.Entities.Models.Kategori", "Kategori")
+                        .WithMany("KonuKategoriler")
+                        .HasForeignKey("KategoriId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tasky.Entities.Models.Konu", "Konu")
+                        .WithMany("KonuKategoriler")
+                        .HasForeignKey("KonuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategori");
+
+                    b.Navigation("Konu");
                 });
 
             modelBuilder.Entity("Tasky.Entities.Models.KullaniciKonu", b =>
@@ -252,7 +315,7 @@ namespace Tasky.DAL.Migrations
             modelBuilder.Entity("Tasky.Entities.Models.KullaniciYetki", b =>
                 {
                     b.HasOne("Tasky.Entities.Models.Kullanici", "Kullanici")
-                        .WithOne("YeKullaniciYetkitki")
+                        .WithOne("KullaniciYetki")
                         .HasForeignKey("Tasky.Entities.Models.KullaniciYetki", "KullaniciId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -279,16 +342,26 @@ namespace Tasky.DAL.Migrations
                     b.Navigation("Kullanici");
                 });
 
+            modelBuilder.Entity("Tasky.Entities.Models.Kategori", b =>
+                {
+                    b.Navigation("KonuKategoriler");
+                });
+
             modelBuilder.Entity("Tasky.Entities.Models.Konu", b =>
                 {
+                    b.Navigation("KonuKategoriler");
+
                     b.Navigation("KullaniciKonular");
                 });
 
             modelBuilder.Entity("Tasky.Entities.Models.Kullanici", b =>
                 {
+                    b.Navigation("KullaniciIletisim")
+                        .IsRequired();
+
                     b.Navigation("KullaniciKonular");
 
-                    b.Navigation("YeKullaniciYetkitki")
+                    b.Navigation("KullaniciYetki")
                         .IsRequired();
                 });
 

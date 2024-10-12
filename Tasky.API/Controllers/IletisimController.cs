@@ -32,5 +32,21 @@ namespace Tasky.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> IletisimBilgiListele()
+        {
+            var result = await _iletisimService.IletisimBilgiListele();
+
+            return Ok(result);
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> IletisimBilgiSil(int Id)
+        {
+            var result = await _iletisimService.IletisimBilgiSil(Id);
+
+            return Ok(result);
+        }
     }
 }

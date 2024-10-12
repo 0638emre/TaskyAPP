@@ -5,5 +5,7 @@ public class Konu
     public int Id { get; set; }
     public string KonuAdi { get; set; }
     public ICollection<KullaniciKonu> KullaniciKonular { get; set; }
+    public ICollection<KonuKategori> KonuKategoriler { get; set; }
+
 
 }

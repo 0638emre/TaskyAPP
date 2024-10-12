@@ -6,11 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Tasky.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class _202408101004 : Migration
+    public partial class _202411101112 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Kategori",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    KategoriId = table.Column<int>(type: "int", nullable: false),
+                    KategoriAdi = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kategori", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Konular",
                 columns: table => new
@@ -56,7 +70,33 @@ namespace Tasky.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Iletisim",
+                name: "KonuKategori",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    KonuId = table.Column<int>(type: "int", nullable: false),
+                    KategoriId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KonuKategori", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_KonuKategori_Kategori_KategoriId",
+                        column: x => x.KategoriId,
+                        principalTable: "Kategori",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_KonuKategori_Konular_KonuId",
+                        column: x => x.KonuId,
+                        principalTable: "Konular",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Iletisimler",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -69,13 +109,13 @@ namespace Tasky.DAL.Migrations
                     Il = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Ilce = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Memleket = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AaracPlaka = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AracPlaka = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Iletisim", x => x.Id);
+                    table.PrimaryKey("PK_Iletisimler", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Iletisim_Kullanicilar_KullaniciId",
+                        name: "FK_Iletisimler_Kullanicilar_KullaniciId",
                         column: x => x.KullaniciId,
                         principalTable: "Kullanicilar",
                         principalColumn: "Id",
@@ -157,9 +197,20 @@ namespace Tasky.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Iletisim_KullaniciId",
-                table: "Iletisim",
-                column: "KullaniciId");
+                name: "IX_Iletisimler_KullaniciId",
+                table: "Iletisimler",
+                column: "KullaniciId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KonuKategori_KategoriId",
+                table: "KonuKategori",
+                column: "KategoriId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KonuKategori_KonuId",
+                table: "KonuKategori",
+                column: "KonuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_KullaniciKonulari_KonuId",
@@ -192,7 +243,10 @@ namespace Tasky.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Iletisim");
+                name: "Iletisimler");
+
+            migrationBuilder.DropTable(
+                name: "KonuKategori");
 
             migrationBuilder.DropTable(
                 name: "KullaniciKonulari");
@@ -202,6 +256,9 @@ namespace Tasky.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Lugatlar");
+
+            migrationBuilder.DropTable(
+                name: "Kategori");
 
             migrationBuilder.DropTable(
                 name: "Konular");
