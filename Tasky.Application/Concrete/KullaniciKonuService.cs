@@ -29,14 +29,13 @@ public class KullaniciKonuService : IKullaniciKonuService
             throw new ApplicationException(BussinessConstans.KullaniciBulunamadi);
         }
 
-        KullaniciKonu kullaniciKonu = new()
+        
+        var result =  await _dbContext.KullaniciKonulari.AddAsync(new KullaniciKonu()
         {
             KayitTarihi = DateTime.Now,
             KonuId = konuId,
             KullaniciId = kullaniciId,
-        };
-        
-        var result =  await _dbContext.KullaniciKonulari.AddAsync(kullaniciKonu);
+        });
         
         if (result is null)
         {

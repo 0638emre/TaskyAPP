@@ -20,5 +20,14 @@ public static class BussinessConstans
     public const string KullaniciyeAitOzluSozEklenemedi = "Kullanıcıya ait özlü söz eklenemedi. !";
     public const string HerhangiBirOzluSozBulunamadi = "Herhangi bir özlu söz bulunamadı. !";
     public const string IletisimBilgileriBulunamadi = "İletişim bilgisi bulunamadı !";
+    public const string KategoriEklenemedi = "Kategori ekleme işlemi başarısız !";
+    public const string KategoriZatenBulunmaktadır = "Kategori zaten bulunmaktadır !";
+    public const string KategoriSilinemedi = "Kategori silme işlemi başarısız !";
+    public const string KategoriBulunamadi = "Kategori bulunamadı işlemi başarısız !";
+    public const string KategoriGuncellenemedi = "Kategori güncelleme işlemi başarısız !";
+
+
+
+
 
 }

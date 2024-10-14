@@ -17,6 +17,8 @@ public class TaskDBContext : DbContext
     public DbSet<KullaniciYetki> KullaniciYetkiler { get; set; }
     public DbSet<Lugat> Lugatlar { get; set; }
     public DbSet<Iletisim> Iletisimler { get; set; }
+    public DbSet<Kategori> Kategoriler { get; set; }
+    public DbSet<KonuKategori> KonuKategoriler { get; set; }
 
 
 }

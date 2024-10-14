@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tasky.Entities.Models
+namespace Tasky.Application.DTOs
 {
-   public class Kategori
+    public class KategoriResponseDTO
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public int KategoriId { get; set; }
         public string KategoriAdi { get; set; }
 
-        public ICollection<KonuKategori> KonuKategoriler { get; set; }
     }
 }

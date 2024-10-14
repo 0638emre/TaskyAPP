@@ -16,7 +16,5 @@ namespace Tasky.Entities.Models
 
         public Kategori Kategori { get; set; }
 
-
-
     }
 }

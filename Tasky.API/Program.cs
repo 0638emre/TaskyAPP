@@ -41,6 +41,9 @@ builder.Services.AddScoped<IYetkiService, YetkiService>();
 builder.Services.AddScoped<IKullaniciYetkiService, KullaniciYetkiService>();
 builder.Services.AddScoped<ILugatService, LugatService>();
 builder.Services.AddScoped<IIletisimService, IletisimService>();
+builder.Services.AddScoped<IKategoriService, KategoriService>();
+
+
 //TODO: KonuKategori
 //best practice değil!!
 
