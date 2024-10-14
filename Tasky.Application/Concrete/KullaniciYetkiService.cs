@@ -25,7 +25,7 @@ namespace Tasky.Application.Concrete
 
         public async Task<bool> KullaniciyaYetkiVer(int kullaniciId, int yetkiId)
         {
-            var yetkiVer = await _dbContext.Yetkiler.Where(k => k.Id.Equals(yetkiId)).AnyAsync();
+            var yetkiVer = await _dbContext.Yetkiler.Where(y => y.Id.Equals(yetkiId)).AnyAsync();
 
             if (!yetkiVer)
             {

@@ -28,10 +28,9 @@ namespace Tasky.Application.Concrete
            var result = await _dbContext.Kategoriler.AddAsync(new Kategori() 
            {
                KategoriAdi = kategoriAdi,
-
            });
 
-            if (result is not null)
+            if (result is null)
             {
                 throw new Exception(BussinessConstans.KategoriEklenemedi);
             }

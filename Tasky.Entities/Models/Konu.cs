@@ -6,6 +6,4 @@ public class Konu
     public string KonuAdi { get; set; }
     public ICollection<KullaniciKonu> KullaniciKonular { get; set; }
     public ICollection<KonuKategori> KonuKategoriler { get; set; }
-
-
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tasky.Entities.Models
+﻿namespace Tasky.Entities.Models
 {
     public class KonuKategori
     {
@@ -15,6 +9,7 @@ namespace Tasky.Entities.Models
         public int KonuId { get; set; }
 
         public Kategori Kategori { get; set; }
+        public int KategoriId { get; set; }
 
     }
 }

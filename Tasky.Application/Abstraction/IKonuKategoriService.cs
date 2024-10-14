@@ -8,6 +8,6 @@ namespace Tasky.Application.Abstraction
 {
     public interface IKonuKategoriService
     {
-
+        public Task<bool> KategoriyeKonuEkle(int kategoriId, int konuId );
     }
 }
