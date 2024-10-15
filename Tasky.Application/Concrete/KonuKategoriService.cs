@@ -35,7 +35,7 @@ namespace Tasky.Application.Concrete
 
             if (result is null)
             {
-                throw new ApplicationException("silinemedi");
+                throw new ApplicationException(BussinessConstans.KonuKategoriSilinemedi);
             }
 
             await _dbContext.SaveChangesAsync();
@@ -78,44 +78,54 @@ namespace Tasky.Application.Concrete
 
         public async Task<List<KategoriResponseDTO>> KonuKategoriGetirIdyeGore(int kategoriId)
         {
-            //var konukategorikontrol = await _dbContext.KonuKategoriler.Where(k => k.Id.Equals(kategoriId)).AnyAsync();
-            //if (!konukategorikontrol)
-            //{
-            //    throw new ApplicationException(BussinessConstans.KategoriEklenemedi);
-            //}
 
-            //List<KonuResponseDTO> konukategorilist = new();
+            var konukategorikontrol = await _dbContext.Kategoriler.Where(k => k.Id.Equals(kategoriId)).FirstOrDefaultAsync();
 
-            //var data = await _dbContext.KonuKategoriler
-            //    .Include(k => k.Konu)
-            //    .Include(k => k.Kategori)
-            //    .Where(k => k.KategoriId.Equals(kategoriId)).ToListAsync();
+            if (konukategorikontrol is null)
+            {
+                throw new ApplicationException(BussinessConstans.KategoriBulunamadi);
+            }
 
-            //foreach (var k in data)
-            //{
-            //    KategoriResponseDTO kategoriResponseDTO = new();
+            List<KonuResponseDTO> konukategorilist = new();
 
-            //    kategoriResponseDTO.KategoriId = k.KategoriId;
-            //    kategoriResponseDTO.KategoriId = k.KategoriId;
-            //    kategoriResponseDTO.KonuId konuId                                                       
-            //    kategoriResponseDTO
-          
+            var data = await _dbContext.KonuKategoriler
+                .Include(k => k.Konu)
+                .Include(k => k.Kategori)
+                .Where(k => k.KategoriId.Equals(kategoriId)).ToListAsync();
 
-            //    kategoriId.add(kategoriResponseDTO);
-            //}
+            foreach (var k in data)
+            {
+                KategoriResponseDTO kategoriResponseDTO = new();
 
-            //return ka;
+                //kategoriResponseDTO.CeteleId = k.Id;
+                //kategoriResponseDTO.KullaniciId = k.KullaniciId;
+                //kategoriResponseDTO.KullaniciAdveSoyad = k.Kullanici.Ad + " " + k.Kullanici.Soyad;
+                //kategoriResponseDTO.KonuId = k.KonuId;
+                //kategoriResponseDTO.KonuAd = k.Konu.KonuAdi;
+                //kategoriResponseDTO.KayitTarih = k.KayitTarihi;
+
+                //ceteleGetirList.Add(ceteleGetirResponseDto);
+
+
+
+            }
+
+            return null;
         }
 
         public Task<List<KategoriResponseDTO>> KonuKategoriListesi()
         {
             throw new NotImplementedException();
         }
+
+        Task<List<KonuKategoriResponseDTO>> IKonuKategoriService.KonuKategoriGetirIdyeGore(int kategoriId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<KonuKategoriResponseDTO>> IKonuKategoriService.KonuKategoriListesi()
+        {
+            throw new NotImplementedException();
+        }
     } 
 }
-//response.Id = result.Id;
-//response.YetkiId = result.YetkiId;
-//response.KullaniciId = result.KullaniciId;
-//response.YetkiAdi = result.Yetki.YetkiAdi;
-//response.YetkiTarihi = result.KayitTarihi;
-//response.KullaniciAdSoyad = result.Kullanici.Ad + " " + result.Kullanici.Soyad;

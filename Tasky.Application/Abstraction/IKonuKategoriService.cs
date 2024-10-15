@@ -11,11 +11,11 @@ namespace Tasky.Application.Abstraction
     {
         public Task<bool> KategoriyeKonuEkle(int kategoriId, int konuId );
 
-        Task<List<KategoriResponseDTO>> KonuKategoriGetirIdyeGore(int kategoriId);
+        Task<List<KonuKategoriResponseDTO>> KonuKategoriGetirIdyeGore(int kategoriId);
 
         Task<bool> KategoriKonuSil(int kategoriId);
 
-        Task<List<KategoriResponseDTO>> KonuKategoriListesi();
+        Task<List<KonuKategoriResponseDTO>> KonuKategoriListesi();
 
 
     }

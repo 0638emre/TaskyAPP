@@ -12,5 +12,6 @@ namespace Tasky.Entities.Models
         public string KategoriAdi { get; set; }
 
         public ICollection<KonuKategori> KonuKategoriler { get; set; }
+
     }
 }
