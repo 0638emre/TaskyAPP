@@ -110,6 +110,7 @@ public class KullaniciKonuService : IKullaniciKonuService
         }
         
         var result =  _dbContext.KullaniciKonulari.Remove(cetele);
+
         if (result is null)
         {
             throw new ApplicationException(BussinessConstans.CeteleSilinemedi);
