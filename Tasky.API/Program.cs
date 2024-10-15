@@ -42,6 +42,7 @@ builder.Services.AddScoped<IKullaniciYetkiService, KullaniciYetkiService>();
 builder.Services.AddScoped<ILugatService, LugatService>();
 builder.Services.AddScoped<IIletisimService, IletisimService>();
 builder.Services.AddScoped<IKategoriService, KategoriService>();
+builder.Services.AddScoped<IKonuKategoriService, KonuKategoriService>();
 
 
 //TODO: KonuKategori

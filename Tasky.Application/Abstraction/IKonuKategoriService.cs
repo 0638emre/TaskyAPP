@@ -9,9 +9,9 @@ namespace Tasky.Application.Abstraction
 {
     public interface IKonuKategoriService
     {
-        public Task<bool> KategoriyeKonuEkle(int kategoriId, int konuId );
+        Task<bool> KategoriyeKonuEkle(int kategoriId, int konuId );
 
-        Task<List<KonuKategoriResponseDTO>> KonuKategoriGetirIdyeGore(int kategoriId);
+        Task<KonuKategoriResponseDTO> KonuKategoriGetirIdyeGore(int kategoriId);
 
         Task<bool> KategoriKonuSil(int kategoriId);
 

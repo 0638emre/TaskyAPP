@@ -76,7 +76,7 @@ namespace Tasky.Application.Concrete
             return true;
         }
 
-        public async Task<List<KategoriResponseDTO>> KonuKategoriGetirIdyeGore(int kategoriId)
+        public async Task<KonuKategoriResponseDTO> KonuKategoriGetirIdyeGore(int kategoriId)
         {
 
             var konukategorikontrol = await _dbContext.Kategoriler.Where(k => k.Id.Equals(kategoriId)).FirstOrDefaultAsync();
@@ -85,42 +85,30 @@ namespace Tasky.Application.Concrete
             {
                 throw new ApplicationException(BussinessConstans.KategoriBulunamadi);
             }
-
-            List<KonuResponseDTO> konukategorilist = new();
-
+            
             var data = await _dbContext.KonuKategoriler
                 .Include(k => k.Konu)
                 .Include(k => k.Kategori)
                 .Where(k => k.KategoriId.Equals(kategoriId)).ToListAsync();
+            
+            KonuKategoriResponseDTO konuKategoriResponseDto = new();
+            konuKategoriResponseDto.KategoriId = konukategorikontrol.Id;
+            konuKategoriResponseDto.KategoriAdi =konukategorikontrol.KategoriAdi;
 
+            List<KonuKategoriKonularResponseDTO> konuKategoriKonularResponseDto = new();
             foreach (var k in data)
             {
-                KategoriResponseDTO kategoriResponseDTO = new();
-
-                //kategoriResponseDTO.CeteleId = k.Id;
-                //kategoriResponseDTO.KullaniciId = k.KullaniciId;
-                //kategoriResponseDTO.KullaniciAdveSoyad = k.Kullanici.Ad + " " + k.Kullanici.Soyad;
-                //kategoriResponseDTO.KonuId = k.KonuId;
-                //kategoriResponseDTO.KonuAd = k.Konu.KonuAdi;
-                //kategoriResponseDTO.KayitTarih = k.KayitTarihi;
-
-                //ceteleGetirList.Add(ceteleGetirResponseDto);
-
-
-
+                KonuKategoriKonularResponseDTO konu = new();
+                konu.KonuId = k.KonuId;
+                konu.KonuAdi = k.Konu.KonuAdi;
+                
+                konuKategoriKonularResponseDto.Add(konu);
             }
 
-            return null;
-        }
+            konuKategoriResponseDto.KonuListesi = konuKategoriKonularResponseDto;
+            
 
-        public Task<List<KategoriResponseDTO>> KonuKategoriListesi()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<KonuKategoriResponseDTO>> IKonuKategoriService.KonuKategoriGetirIdyeGore(int kategoriId)
-        {
-            throw new NotImplementedException();
+            return konuKategoriResponseDto;
         }
 
         Task<List<KonuKategoriResponseDTO>> IKonuKategoriService.KonuKategoriListesi()

@@ -11,7 +11,14 @@ namespace Tasky.Application.DTOs
         public int KategoriId { get; set; }
         public string KategoriAdi { get; set; }
 
+        public List<KonuKategoriKonularResponseDTO> KonuListesi { get; set; }
+
+    }
+
+    public class KonuKategoriKonularResponseDTO
+    {
         public int KonuId { get; set; }
         public string KonuAdi { get; set; }
     }
+    
 }
