@@ -118,25 +118,16 @@ namespace Tasky.Application.Concrete
                         .Include(k => k.Konu)
                         .Include(k => k.Kategori)
                         .OrderBy(k => k.KonuId).ToListAsync();
+            
 
-            //KonuKategoriResponseDTO konuKategoriResponseDto = new();
-            //konuKategoriResponseDto.KategoriId = konuKategoriResponseDto.KategoriId;
-            //konuKategoriResponseDto.KategoriAdi = konuKategoriResponseDto.KategoriAdi;
+            List<KonularinKategorileriResponseDTO> kategoriKonuListele = new();
 
-            //if (datas is null)
-            //{
-            //    throw new Exception(BussinessConstans.KonuKategoriListelenemedi);
-            //}
-
-
-            //List<KonularinKategorileriResponseDTO> kategoriKonuListele = new();
-
-            //foreach (var data in datas)
-            //{
-            //    KonularinKategorileriResponseDTO konuKatergoriGetirResponseDTO = new();
-            //    konuKatergoriGetirResponseDTO.KategoriId = data.KategoriId;
-            //    konuKatergoriGetirResponseDTO.KategoriAdi = data.KategoriAdi;
-            //}
+            foreach (var data in datas)
+            {
+                KonularinKategorileriResponseDTO konuKatergoriGetirResponseDTO = new();
+                konuKatergoriGetirResponseDTO.KategoriId = data.KategoriId; 
+                konuKatergoriGetirResponseDTO.KategoriAdi = data.Kategori.KategoriAdi;
+            }
             return null;
         }
     } 
