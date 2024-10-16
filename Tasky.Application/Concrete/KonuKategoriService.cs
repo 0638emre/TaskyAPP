@@ -12,7 +12,7 @@ using Tasky.DAL.Context;
 using Tasky.Entities.Models;
 
 namespace Tasky.Application.Concrete
-{    // hata mesajları ve mesajlar düzeltilecek
+{    
     public class KonuKategoriService : IKonuKategoriService
     {
         private readonly TaskDBContext _dbContext;
@@ -111,9 +111,33 @@ namespace Tasky.Application.Concrete
             return konuKategoriResponseDto;
         }
 
-        Task<List<KonuKategoriResponseDTO>> IKonuKategoriService.KonuKategoriListesi()
+        
+        public async Task<List<KonularinKategorileriResponseDTO>> KonuKategoriListesi()
         {
-            throw new NotImplementedException();
+            var datas = await _dbContext.KonuKategoriler
+                        .Include(k => k.Konu)
+                        .Include(k => k.Kategori)
+                        .OrderBy(k => k.KonuId).ToListAsync();
+
+            //KonuKategoriResponseDTO konuKategoriResponseDto = new();
+            //konuKategoriResponseDto.KategoriId = konuKategoriResponseDto.KategoriId;
+            //konuKategoriResponseDto.KategoriAdi = konuKategoriResponseDto.KategoriAdi;
+
+            //if (datas is null)
+            //{
+            //    throw new Exception(BussinessConstans.KonuKategoriListelenemedi);
+            //}
+
+
+            //List<KonularinKategorileriResponseDTO> kategoriKonuListele = new();
+
+            //foreach (var data in datas)
+            //{
+            //    KonularinKategorileriResponseDTO konuKatergoriGetirResponseDTO = new();
+            //    konuKatergoriGetirResponseDTO.KategoriId = data.KategoriId;
+            //    konuKatergoriGetirResponseDTO.KategoriAdi = data.KategoriAdi;
+            //}
+            return null;
         }
     } 
 }

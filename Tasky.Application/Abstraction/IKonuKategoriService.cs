@@ -15,7 +15,7 @@ namespace Tasky.Application.Abstraction
 
         Task<bool> KategoriKonuSil(int kategoriId);
 
-        Task<List<KonuKategoriResponseDTO>> KonuKategoriListesi();
+        Task<List<KonularinKategorileriResponseDTO>> KonuKategoriListesi();
 
 
     }

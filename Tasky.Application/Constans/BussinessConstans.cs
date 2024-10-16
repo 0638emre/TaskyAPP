@@ -26,6 +26,8 @@ public static class BussinessConstans
     public const string KategoriBulunamadi = "Kategori bulunamadı işlemi başarısız !";
     public const string KategoriGuncellenemedi = "Kategori güncelleme işlemi başarısız !";
     public const string KonuKategoriSilinemedi = "Herhangi bir kategorinin konusu silinemedi.";
+    public const string KonuKategoriListelenemedi = "KonuKategori tablosu listeleme işlemi başarısız.";
+
 
 
 }
