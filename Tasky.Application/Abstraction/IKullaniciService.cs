@@ -19,5 +19,7 @@ public interface IKullaniciService
     Task<bool> KullaniciGuncelle(KullaniciGuncelleRequestDTO kullaniciGuncelleRequest);
 
     Task<ResponseDTO> GirisYap(string email, string sifre);
+    
+    
 
 }
