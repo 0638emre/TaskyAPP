@@ -50,6 +50,7 @@ public class KullaniciKonuService : IKullaniciKonuService
     public async Task<List<CeteleGetirResponseDTO>> CeteleGetirKullaniciIdyeGore(int kullaniciId)
     {
         var kullaniciKontrol = await _dbContext.Kullanicilar.Where(k => k.Id.Equals(kullaniciId)).AnyAsync();
+
         if (!kullaniciKontrol)
         {
             throw new ApplicationException(BussinessConstans.KullaniciBulunamadi);
@@ -104,6 +105,7 @@ public class KullaniciKonuService : IKullaniciKonuService
     public async Task<bool> CeteleSil(int ceteleId)
     {
         var cetele = await _dbContext.KullaniciKonulari.Where(k => k.Id.Equals(ceteleId)).FirstOrDefaultAsync();
+
         if (cetele is null)
         {
             throw new ApplicationException(BussinessConstans.CeteleBulunamadi);

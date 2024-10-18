@@ -111,24 +111,47 @@ namespace Tasky.Application.Concrete
             return konuKategoriResponseDto;
         }
 
-        
         public async Task<List<KonularinKategorileriResponseDTO>> KonuKategoriListesi()
         {
             var datas = await _dbContext.KonuKategoriler
-                        .Include(k => k.Konu)
-                        .Include(k => k.Kategori)
-                        .OrderBy(k => k.KonuId).ToListAsync();
-            
+                .Include(k => k.Konu)
+                .Include(k => k.Kategori)
+                .OrderBy(k => k.KonuId).ToListAsync();
 
             List<KonularinKategorileriResponseDTO> kategoriKonuListele = new();
 
+          
             foreach (var data in datas)
             {
                 KonularinKategorileriResponseDTO konuKatergoriGetirResponseDTO = new();
-                konuKatergoriGetirResponseDTO.KategoriId = data.KategoriId; 
+                konuKatergoriGetirResponseDTO.KategoriId = data.KategoriId;
                 konuKatergoriGetirResponseDTO.KategoriAdi = data.Kategori.KategoriAdi;
+                konuKatergoriGetirResponseDTO.KonuId = data.KonuId;
+                konuKatergoriGetirResponseDTO.KonuAdi = data.Konu.KonuAdi;
+     
+                kategoriKonuListele.Add(konuKatergoriGetirResponseDTO);
             }
-            return null;
+           
+            return kategoriKonuListele;
         }
-    } 
-}
+
+        //public async Task<List<KonularinKategorileriResponseDTO>> KonuKategoriListesi()
+        //{
+        //    var datas = await _dbContext.KonuKategoriler
+        //                .Include(k => k.Konu)
+        //                .Include(k => k.Kategori)
+        //                .OrderBy(k => k.KonuId).ToListAsync();
+
+
+        //    List<KonularinKategorileriResponseDTO> kategoriKonuListele = new();
+
+        //    foreach (var data in datas)
+        //    {
+        //        KonularinKategorileriResponseDTO konuKatergoriGetirResponseDTO = new();
+        //        konuKatergoriGetirResponseDTO.KategoriId = data.KategoriId; 
+        //        konuKatergoriGetirResponseDTO.KategoriAdi = data.Kategori.KategoriAdi;
+        //    }
+        //    return null;
+    }
+} 
+
